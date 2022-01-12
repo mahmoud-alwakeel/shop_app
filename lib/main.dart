@@ -7,11 +7,10 @@ import 'package:shopp_app/modules/login/login_screen.dart';
 import 'package:shopp_app/on_boarding/on_boarding_screen.dart';
 import 'package:shopp_app/shared/network/local/cache_helper.dart';
 import 'package:shopp_app/shared/network/remote/dio_helper.dart';
-import 'package:shopp_app/shared/styles/themes.dart';
 
-import 'modules/login/cubit/states.dart';
-import 'modules/login/shop_second_cubit/bloc.dart';
-import 'modules/login/shop_second_cubit/bloc_states.dart';
+import 'bloc/shop_second_cubit/bloc.dart';
+import 'bloc/shop_second_cubit/bloc_states.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,10 +27,11 @@ void main() async{
 
 
   if(onBoarding != null){
-    if(token != null){
-      widget = LayoutScreen();
-    } else  widget = LoginScreen();
-  } else  widget = OnBoardingScreen();
+    if(token != null)  widget = LayoutScreen();
+     else  widget = LoginScreen();
+  } else  {
+    widget = OnBoardingScreen();
+  }
   print(onBoarding);
 
   //widget = LayoutScreen();
@@ -53,14 +53,14 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
         BlocProvider(create: (BuildContext context) => ShopLoginCubit()),
-        BlocProvider(create: (BuildContext context) => ShopLayoutCubit()..getHomeData()),
+        BlocProvider(create: (BuildContext context) => ShopLayoutCubit()..getHomeData()..getCategories()..getFavorites()..getUserData()),
     ],
     child: BlocConsumer<ShopLayoutCubit, ShopLayoutStates>(
     listener: (context,ShopLayoutStates state){},
     builder: (context,ShopLayoutStates state){
     return MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: startWidget,
+    home: LayoutScreen(),
 
     );
   },

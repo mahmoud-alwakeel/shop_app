@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:shopp_app/modules/login/login_screen.dart';
 import 'package:shopp_app/shared/components/components.dart';
-import 'package:shopp_app/shared/components/constants.dart';
-import 'package:shopp_app/shared/network/local/cache_helper.dart';
 import 'package:shopp_app/shared/network/local/cache_helper.dart';
 import 'package:shopp_app/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

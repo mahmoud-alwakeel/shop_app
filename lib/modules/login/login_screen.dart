@@ -2,14 +2,14 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shopp_app/bloc/shop_second_cubit/bloc.dart';
 import 'package:shopp_app/layout/layout.dart';
 import 'package:shopp_app/modules/login/cubit/cubit.dart';
 import 'package:shopp_app/modules/login/cubit/states.dart';
-import 'package:shopp_app/modules/login/shop_second_cubit/bloc.dart';
 import 'package:shopp_app/modules/products/products_screen.dart';
 import 'package:shopp_app/modules/register/register_screen.dart';
 import 'package:shopp_app/shared/components/components.dart';
+import 'package:shopp_app/shared/components/constants.dart';
 import 'package:shopp_app/shared/network/local/cache_helper.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context) => ShopLoginCubit()),
-        BlocProvider(create: (BuildContext context) => ShopLayoutCubit()),
+        //BlocProvider(create: (BuildContext context) => ShopLayoutCubit()),
       ],
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context,ShopLoginStates state){
@@ -36,6 +36,7 @@ class LoginScreen extends StatelessWidget {
                 key: 'token',
                 value: state.loginModel.data.token,
               ).then((value) {
+                token = state.loginModel.data.token;
                 navigateAndFinish(context, LayoutScreen());
               });
             }else{
@@ -91,13 +92,13 @@ class LoginScreen extends StatelessWidget {
                         defaultFormField(
                           controller: passwordController,
                           type: TextInputType.emailAddress,
-                          suffix: ShopLoginCubit.get(context).suffix,
-                          isPassword: ShopLoginCubit.get(context).isPassword,
-                          suffixPressed: (){
-                            print('visibility changed');
-                            ShopLoginCubit.get(context).changePasswordVisibility();
-
-                          },
+                          // suffix: ShopLoginCubit.get(context).suffix,
+                          // isPassword: ShopLoginCubit.get(context).isPassword,
+                          // suffixPressed: (){
+                          //   print('visibility changed');
+                          //   ShopLoginCubit.get(context).changePasswordVisibility();
+                          //
+                          // },
                           
                           onSubmit: (value)
                           {
@@ -130,8 +131,10 @@ class LoginScreen extends StatelessWidget {
                                   email: emailController.text,
                                   password: passwordController.text,
                                 );
+                                navigateAndFinish(context, ProductsScreen());
                                 print('after cubit');
                               }
+
                               else print('cannot login');
                             },
                             text: 'login',

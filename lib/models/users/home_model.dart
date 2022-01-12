@@ -3,23 +3,25 @@ class HomeModel{
   HomeDataModel data;
 
   HomeModel.fromJson(Map<String, dynamic> json){
-    status = json['data'];
+    status = json['status'];
     data = HomeDataModel.fromJson(json['data']);
   }
 }
 
 class HomeDataModel{
 
-  List<BannersModel> banners;
-  List<ProductModel> products;
+  List<BannersModel> banners = [];
+  List<ProductModel> products = [];
 
   HomeDataModel.fromJson(Map<String, dynamic> json){
     json['banners'].forEach((element){
-      banners.add(element);
+      print(element);
+      banners.add(BannersModel.fromJson(element));
+
     });
 
     json['products'].forEach((element){
-      products.add(element);
+      products.add(ProductModel.fromJson(element));
     });
   }
 }

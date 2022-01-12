@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopp_app/bloc/shop_second_cubit/bloc.dart';
+import 'package:shopp_app/bloc/shop_second_cubit/bloc_states.dart';
 import 'package:shopp_app/modules/login/login_screen.dart';
-import 'package:shopp_app/modules/login/shop_second_cubit/bloc.dart';
-import 'package:shopp_app/modules/login/shop_second_cubit/bloc_states.dart';
 import 'package:shopp_app/modules/search/search_screen.dart';
 import 'package:shopp_app/shared/components/components.dart';
 import 'package:shopp_app/shared/network/local/cache_helper.dart';
@@ -34,6 +34,7 @@ class LayoutScreen extends StatelessWidget {
             onTap: (index){
               cubit.changeBottom(index);
             },
+            type: BottomNavigationBarType.fixed,
             currentIndex: cubit.currentIndex,
             items: [
               BottomNavigationBarItem(
